@@ -9,7 +9,7 @@ class SchedulesDirect:
 		self.headers = {'User-agent': 'schedulesdirect.py'}
 	
 	def get_randhash(self,username,password):
-		del self.headers['token']
+		if 'token' in self.headers: del self.headers['token']
 		passhash = hashlib.sha1(password.encode('utf-8')).hexdigest()
 		data = json.dumps({"password":passhash,"username":username})
 		resp = requests.post(SchedulesDirect.BASE_URL+"/token",headers=self.headers,data=data).json()
